@@ -1,5 +1,7 @@
+from urllib.request import urlretrieve
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+import pandas as pd
 
 response = urlopen('https://alura-site-scraping.herokuapp.com/index.php')
 html = response.read().decode('utf-8')
@@ -28,4 +30,12 @@ acessorios = []
 for item in items:
     acessorios.append(item.getText().replace('► ', ''))
 card['acessorios'] = acessorios
-print(card)
+# Transformando o dicionário em um DataFrame
+dataset = pd.DataFrame.from_dict(card, orient = 'index').T
+# Salvando o DataFrame em um arquivo csv
+dataset.to_csv('../data/anuncios.csv', index=False, sep=';', encoding='utf8')
+# Obtendo a imagem do anúncio
+image = anuncio.find('div', {'class': 'image-card'}).img
+image.get('src')
+
+urlretrieve(image.get('src'), '../img/' + image.get('src').split('/')[-1])
