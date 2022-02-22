@@ -27,3 +27,13 @@ print(soup.body.h5.getText())
 print(soup.body)
 # Obtendo somente o texto (ignorando as tags) do documento html completo
 print(soup.get_text())
+
+# Acessando atributos de uma tag
+print(soup.img.attrs) # Imprime um dicionário do tipo
+                      # {'src': 'img/alura-logo.svg', 'class': ['d-inline-block', 'align-top'], 'alt': 'Alura'}
+# Obtendo somente as chaves dos atributos de uma tag
+print(soup.img.attrs.keys()) # Retorna um dicionário no estilo dict_keys(['src', 'class', 'alt'])
+# Obtendo somente os valores dos atributos de uma tag
+print(soup.img.attrs.values())
+# Para acessar o atributo src de uma tag img:
+print(soup.img.get('src'))
